@@ -9,17 +9,24 @@ const ListingSchema  = new Schema({
     image : {
        filename: { type: String },
        url: {
-             type: String,
-             default: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-             set: function (v) {
-             return (v == " " || v === " ") 
-            ? "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            : v;
-              }
+         type: String,
+         default: "https://www.homebazaar.com/knowledge/wp-content/uploads/2022/07/Sea-Facing-House.jpg",
+         set: function (v) {
+        // If value is null, undefined, or an empty string (trimmed), return default
+        if (!v || v.trim() === "") {
+            return "https://www.homebazaar.com/knowledge/wp-content/uploads/2022/07/Sea-Facing-House.jpg";
         }
+        return v;
+    }
+}
+
     },
 
-    price : Number,
+    price: {
+       type: Number,
+       required: true,
+       min: 0
+    },
     location : String,
     country : String,
 });
