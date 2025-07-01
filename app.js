@@ -47,7 +47,8 @@ const validateListings = (req,res,next) =>{
     let {error} = listingSchema.validate(req.body, { allowUnknown: true });
 
     if(error){
-        throw new ExpressError(`400: ${result.error}`, 400);
+        let errMsg = error.details.map((el)=> el.message).join(",");
+        throw new ExpressError(`400: ${errMsg}`, 400);
     }else{
         next();
     }
