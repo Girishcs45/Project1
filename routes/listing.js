@@ -4,7 +4,8 @@ const {listingSchema}=require("../schema.js");
 const {isLoggedIn} = require("../middleware.js");
 const listingController = require("../controllers/listing.js");
 const multer = require("multer");
-const upload = multer({dest : "uploads/"});
+const {storage} = require("../cloudConfig.js");
+const upload = multer({ storage });
 
 
 function wrapAsync(fn) {
@@ -36,6 +37,11 @@ router.route("/")
 .post(isLoggedIn , validateListings,
     wrapAsync (listingController.create)
 );
+// .post(upload.single("listing[image]"), (req,res) =>{
+//     console.log("FILE:", req.file);
+//     console.log("BODY:", req.body);
+//     res.send("got it");
+// });
 
 router.get("/new" , isLoggedIn ,listingController.rendernew);
 
