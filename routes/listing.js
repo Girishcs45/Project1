@@ -35,13 +35,10 @@ const validateListings = (req,res,next) =>{
 router.route("/")
 .get(wrapAsync (listingController.index))
 .post(isLoggedIn , validateListings,
+    upload.single("listing[image.url]"),
     wrapAsync (listingController.create)
 );
-// .post(upload.single("listing[image]"), (req,res) =>{
-//     console.log("FILE:", req.file);
-//     console.log("BODY:", req.body);
-//     res.send("got it");
-// });
+
 
 router.get("/new" , isLoggedIn ,listingController.rendernew);
 
@@ -49,7 +46,8 @@ router.route("/:id")
 .get(
     wrapAsync (listingController.show)
 )
-.put(isLoggedIn , validateListings,
+.put(isLoggedIn , upload.single("listing[image.url]"),
+    validateListings,
     wrapAsync (listingController.update)
 )
 .delete( isLoggedIn ,
