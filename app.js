@@ -87,6 +87,9 @@ app.use("/listings", listings);
 app.use("/listings/:id/reviews",reviews);
 app.use("/",userRouter);
 
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 
 app.use((err, req, res, next) => {
