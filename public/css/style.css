@@ -122,3 +122,7 @@ body{
 #map{
     height: 400px;
 }
+
+.tax-info{
+    display: none;
+}
